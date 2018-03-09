@@ -92,6 +92,7 @@
 ## Partner A teaches Partner B
 
 * Teach your partner what we just did
+* 30 seconds
 
 ---
 
@@ -104,6 +105,7 @@
 ## Partner B teaches Partner A
 
 * Teach your partner what we just did
+* 30 seconds
 
 ---
 
@@ -138,61 +140,45 @@
 
 ---
 
-## Reducers(solution)
+## Partner B teaches Partner A
 
-```js
-test("should initialize with an empty object as the default state", () => {
-  expect(BenchesReducer(undefined, {})).toEqual({});
-});
-```
+* Explain the code demo to your partner
+* 30 seconds
 
 ---
 
-## Reducers Part II
+## Group Coding
 
-* use testUtil file
-* If you finish early, write tests for `filters_reducer.js` for extra practice!
-
-```js
-describe("handling the RECEIVE_BENCHES action", () => {
-  let action;
-
-  beforeEach(() => {
-    // Set up the action that will be passed into the reducer:
-    // Your code here
-  });
-
-  test("should replace the state with the action's benches", () => {
-    // Your code here
-  });
-
-  test("should not modify the old state", () => {
-    // Your code here
-  });
-});
-```
+* Let's set up another test together
 
 ---
 
-## Reducers Part II (Solution)
+## Partner A teaches Partner B
+
+* Explain what we just did to your partner
+* 45 seconds
+
+---
+
+## Individual Coding
+
+* Write tests for `RECEIVE_BENCH`
+* 4 minutes
+
+---
+
+## `RECEIVE_BENCH` test solution
 
 ```js
-beforeEach(() => {
-  action = {
-    type: BenchActions.RECEIVE_BENCHES,
-    benches: testBenches
+test("should handle RECEIVE_BENCH", () => {
+  let action = {
+    type: BenchActions.RECEIVE_BENCH,
+    bench: newBench
   };
-});
 
-test("should replace the state with the action's benches", () => {
-  const state = BenchesReducer(undefined, action);
-  expect(state).toEqual(testBenches);
-});
-
-test("should not modify the old state", () => {
-  let oldState = { 1: "oldState" };
-  BenchesReducer(oldState, action);
-  expect(oldState).toEqual({ 1: "oldState" });
+  expect(BenchesReducer(testBenches, action)).toEqual(
+    Object.assign({}, testBenches, { 3: newBench })
+  );
 });
 ```
 
@@ -200,73 +186,73 @@ test("should not modify the old state", () => {
 
 ## Action Creators
 
+* Still pretty straight forward
+* Only gets messy when asynchronous activity is involved
+
+---
+
+## Group Coding
+
+* Let's write test for `receiveBenches` together
+
+---
+
+## Partner B teach partner A
+
+* Explain how to write a test for simple action creator
+
+---
+
+## Individual Coding
+
+* Write test for `receiveBench`
+* 2 minutes
+
+---
+
+## `receiveBench` solution
+
 ```js
-describe("actions", () => {
-  test("receiveBenches should create an action to receive benches", () => {
-    // refer to https://redux.js.org/docs/recipes/WritingTests.html
-  });
+test("receiveBench should create an action to receive one bench", () => {
+  const expectedAction = {
+    type: actions.RECEIVE_BENCH,
+    bench: newBench
+  };
+
+  expect(actions.receiveBench(newBench)).toEqual(expectedAction);
 });
 ```
 
 ---
 
-## Action Creators Solution
-
-```js
-describe("actions", () => {
-  test("receiveBenches should create an action to receive benches", () => {
-    const expectedAction = {
-      type: actions.RECEIVE_BENCHES,
-      benches: testBenches
-    };
-
-    expect(actions.receiveBenches(testBenches)).toEqual(expectedAction);
-  });
-});
-```
+## 10 minute break
 
 ---
 
-## Async Action Creators
+## Async Action Creator Code Demo
+
+* Let's write a test for `fetchBenches`
+
+---
+
+# With your partner
+
+* Write tests for `fetchBench`
+
+---
+
+## `fetchBench` solution
 
 ```js
-test("fetchBenches creates RECEIVE_BENCHES after fetching benches", () => {
-  // REFER TO REDUX TESTS DOCS
-  // Set up expectedActions:
-  // Your code here
-
-  ApiUtil.fetchBenches = jest.fn(() => {
-    return Promise.resolve(testBenches);
-  });
-
+test("fetchBench creates RECEIVE_BENCH after fetching new bench", () => {
   const store = mockStore({ benches: {} });
+  const expectedActions = [{ type: actions.RECEIVE_BENCH, bench: newBench }];
 
-  return store.dispatch(actions.fetchBenches()).then(() => {
-    // Your code here
-  });
-});
-```
-
----
-
-## Async Action Creators (Solution)
-
-```js
-test("fetchBenches creates RECEIVE_BENCHES after fetching benches", () => {
-  const expectedActions = [
-    {
-      type: actions.RECEIVE_BENCHES,
-      benches: testBenches
-    }
-  ];
-
-  ApiUtil.fetchBenches = jest.fn(() => {
-    return Promise.resolve(testBenches);
+  ApiUtil.fetchBench = jest.fn(() => {
+    return Promise.resolve(newBench);
   });
 
-  const store = mockStore({ benches: {} });
-
-  return store.dispatch(actions.fetchBenches()).then(() => {
+  return store.dispatch(actions.fetchBench()).then(() => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
