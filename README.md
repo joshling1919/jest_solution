@@ -1,17 +1,17 @@
 # BenchBnB- Frontend Tests
 
-## Useful Docs
-
-* http://redux.js.org/docs/recipes/WritingTests.html
-* https://facebook.github.io/jest/docs/en/expect.html
-
----
-
 ## Today's Goals
 
 * Learn what Jest and Enzyme are
 * Do a bunch of examples
 * Lay a foundation for more independent testing
+
+---
+
+## Today's expectation
+
+* Stay engaged!
+* Be ready!
 
 ---
 
@@ -70,12 +70,6 @@
 
 ---
 
-## Head's Up
-
-**Be ready to answer questions!**
-
----
-
 ## Practice
 
 * Set up a `__tests__` folder in `practice`
@@ -112,18 +106,6 @@
 ## Individual Coding
 
 * Test the last practice function on your own
-
----
-
-## Structure
-
-* Goal: Do a bunch of examples. (we'll be moving fast)
-* Code Demo
-* Talk through code demo with partner
-* Code Together
-* Talk through 'Code Together' example with partner
-* Ask Questions
-* Try it on your own
 
 ---
 
@@ -262,14 +244,29 @@ test("fetchBench creates RECEIVE_BENCH after fetching new bench", () => {
 
 ## Component Testing
 
-* Enzyme
+* Enzyme- Enzyme is a JavaScript Testing utility for React that makes it easier to assert, manipulate, and traverse your React Components' output.
 * jQuery like API on components
+* Test what's being rendered
+* Test that props being passed in are used correctly
+* Test events that happen on the component
 
 ---
 
 ## Component Testing Set-up
 
-* `npm install --save-dev enzyme
+* `npm install --save-dev enzyme`
+* `npm install --save-dev enzyme-adapter-react-15 react-test-renderer`
+* add the `setUpEnzymeAdapter.js` file and reference it in `package.json`
+
+---
+
+## Enzyme docs
+
+* http://airbnb.io/enzyme/docs/api/shallow.html
+
+---
+
+## Component testing demo
 
 ---
 
